@@ -2,12 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import "./HomePageAnimation.css";
 import { apis } from "../../Api/Apis";
 import LoadingShape from "../../Helpers/LoadingShape/LoadingShape";
+import { redirect } from "react-router-dom";
 
 function HomePageAnimation() {
   const consoleRef = useRef(null);
   const [url, setUrl] = useState("");
   const [isPhishing, setIsPhishing] = useState(null);
   const [isloading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const intervalID = window.setInterval(updateScreen, 200);
 
@@ -59,12 +61,17 @@ function HomePageAnimation() {
     try {
       const response = await apis.checkApi(url);
       setIsPhishing(response.data);
-      setIsLoading(false);
-      setUrl("");
+
+      if (response.status === 200) {
+        setIsLoading(false);
+        setUrl("");
+        return redirect("/AnalysisPage");
+      }
     } catch (error) {
       console.error("Error checking URL:", error);
       setIsLoading(false);
       setUrl("");
+      return redirect("/analysis");
     }
   };
 
