@@ -1,7 +1,7 @@
 import React from "react";
 
 function AnalysisPage() {
-  return <div>hiiiiiiiiiiiiiiiiiiiiiiiiii</div>;
+  return <div></div>;
 }
 
 export default AnalysisPage;

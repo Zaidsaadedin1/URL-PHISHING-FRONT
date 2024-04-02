@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./HomePageAnimation.css";
 import { apis } from "../../Api/Apis";
 import LoadingShape from "../../Helpers/LoadingShape/LoadingShape";
-import { redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 function HomePageAnimation() {
   const consoleRef = useRef(null);
@@ -57,24 +57,29 @@ function HomePageAnimation() {
   }
 
   const checkUrl = async () => {
+    if (!url) {
+      return;
+    }
     setIsLoading(true);
     try {
       const response = await apis.checkApi(url);
-      setIsPhishing(response.data);
+      setIsPhishing(true);
 
       if (response.status === 200) {
         setIsLoading(false);
         setUrl("");
-        return redirect("/AnalysisPage");
+        setIsPhishing(true);
       }
     } catch (error) {
       console.error("Error checking URL:", error);
       setIsLoading(false);
       setUrl("");
-      return redirect("/analysis");
+      setIsPhishing(true); //false
     }
   };
-
+  if (isPhishing) {
+    return <Navigate to={"/analysis"} />;
+  }
   return (
     <div className="parent-one">
       <div className="parent">
