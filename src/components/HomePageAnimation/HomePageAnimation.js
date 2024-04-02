@@ -3,59 +3,20 @@ import "./HomePageAnimation.css";
 import { apis } from "../../Api/Apis";
 import LoadingShape from "../../Helpers/LoadingShape/LoadingShape";
 import { Navigate } from "react-router-dom";
+import DonutChart from "../../Helpers/DonutChart/DonutChart";
 
 function HomePageAnimation() {
-  const consoleRef = useRef(null);
   const [url, setUrl] = useState("");
   const [isPhishing, setIsPhishing] = useState(null);
   const [isloading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const intervalID = window.setInterval(updateScreen, 200);
-
-    return () => {
-      clearInterval(intervalID);
-    };
-  }, []);
-
-  const txt = [
-    "FORCE: XX0022. ENCYPT://000.222.2345",
-    "TRYPASS: ********* AUTH CODE: ALPHA GAMMA: 1___ PRIORITY 1",
-    "RETRY: REINDEER FLOTILLA",
-    "Z:> /FALKEN/GAMES/TICTACTOE/ EXECUTE -PLAYERS 0",
-    "================================================",
-    "Priority 1 // local / scanning...",
-    "scanning ports...",
-    "BACKDOOR FOUND (23.45.23.12.00000000)",
-    "BACKDOOR FOUND (13.66.23.12.00110000)",
-    "BACKDOOR FOUND (13.66.23.12.00110044)",
-    "...",
-    "...",
-    "BRUTE.EXE -r -z",
-    "...locating vulnerabilities...",
-    "...vulnerabilities found...",
-    "MCP/> DEPLOY CLU",
-    "SCAN: __ 0100.0000.0554.0080",
-    "SCAN: __ 0020.0000.0553.0080",
-    "SCAN: __ 0001.0000.0554.0550",
-    "SCAN: __ 0012.0000.0553.0030",
-    "SCAN: __ 0100.0000.0554.0080",
-    "SCAN: __ 0020.0000.0553.0080",
+  const [datas, setDatas] = useState([]);
+  const data = [
+    { name: "Mark", value: 90 },
+    { name: "Robert", value: 12 },
+    { name: "Emily", value: 34 },
+    { name: "Marion", value: 53 },
+    { name: "Nicolas", value: 98 },
   ];
-
-  function updateScreen() {
-    //Shuffle the "txt" array
-    txt.push(txt.shift());
-    //Clear console
-    consoleRef.current.innerHTML = "";
-    //Update console
-    txt.forEach((e) => {
-      const p = document.createElement("p");
-      p.textContent = e;
-      consoleRef.current.appendChild(p);
-    });
-  }
-
   const checkUrl = async () => {
     if (!url) {
       return;
@@ -66,6 +27,7 @@ function HomePageAnimation() {
       setIsPhishing(true);
 
       if (response.status === 200) {
+        setDatas(response.data);
         setIsLoading(false);
         setUrl("");
         setIsPhishing(true);
@@ -81,8 +43,18 @@ function HomePageAnimation() {
     return <Navigate to={"/analysis"} />;
   }
   return (
-    <div className="parent-one">
-      <div className="parent">
+    <div className="parent">
+      <div>
+        <h1 className="main-header">
+          MESH URL Phishing Detector Detects and Monitors Phishing and Scam
+          Sites
+        </h1>
+        <h1 className="main-header-sub">
+          With MESH URL Phishing Detector, you can scan suspicious URLs and
+          monitor for typosquats and lookalikes variants of a domain.
+        </h1>
+      </div>
+      <div className="search-container">
         <input
           className="url-input"
           type="text"
@@ -92,10 +64,25 @@ function HomePageAnimation() {
         />
         <button className="button" disabled={isloading} is onClick={checkUrl}>
           {isloading && <LoadingShape />}
-          Check URL
+          Scan
         </button>
       </div>
-      <div className="animation" id="console" ref={consoleRef}></div>
+      {datas && (
+        <footer className="home-page-foorter">
+          <div className="footer-donut">
+            <DonutChart width={300} height={300} data={data} />
+            <h1>SVM</h1>
+          </div>
+          <div className="footer-donut">
+            <DonutChart width={300} height={300} data={data} />
+            <h1>Random Forest</h1>
+          </div>
+          <div className="footer-donut">
+            <DonutChart width={300} height={300} data={data} />
+            <h1>Decision Tree</h1>
+          </div>
+        </footer>
+      )}
     </div>
   );
 }
