@@ -33,7 +33,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
+  width: max-content;
 }
 
 .search-container {
@@ -42,8 +42,8 @@
   align-items: center;
   border: 1px solid black;
   border-radius: 5px;
-  width: max-content;
-
+  max-width: 1000px;
+  min-width: 600px;
 }
  
 
@@ -65,12 +65,9 @@
   font-style: oblique;
   padding: 10px;
   color: rgb(0, 0, 0);
-  width: 700px;
-  max-width: 1000px;
-  min-width: 300px;
   margin: 0%;
   height: 20px;
-    outline: none;
+  outline: none;
   border: 0cap;
 
 }
@@ -81,6 +78,7 @@
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 .footer-donut{
   margin: 0%;

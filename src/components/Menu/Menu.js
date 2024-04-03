@@ -6,17 +6,17 @@ function Menu() {
   return (
     <div className="menu-div">
       <div>
-        <Link to="/" className="menu-link">   
+        <Link to="/" className="menu-link">
           <h1 className="logo">MESH URL PHISHING DETECTOR</h1>
         </Link>
       </div>
 
       <div className="right-side-menu">
         <Link to="/about-us" className="menu-link">
-          <h2 className="logo">About Us</h2>
+          <h2 className="logo">AboutUs</h2>
         </Link>
         <Link to="/contact-us" className="menu-link">
-          <h2 className="logo">Contact Us</h2>
+          <h2 className="logo">ContactUs</h2>
         </Link>
       </div>
     </div>
