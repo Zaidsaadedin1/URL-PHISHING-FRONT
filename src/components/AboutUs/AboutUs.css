@@ -1,0 +1,22 @@
+.parent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sub-parent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-right: 80px; 
+    padding-left: 80px; 
+
+}
+.main-pragragh{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: x-large;
+    margin: 5px;
+    margin-top: 30px;
+    color: gray;
+}
