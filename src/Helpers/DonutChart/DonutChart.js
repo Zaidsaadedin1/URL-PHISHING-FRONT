@@ -1,46 +1,72 @@
-import { useMemo } from "react";
-import * as d3 from "d3";
+import React, { useEffect, useRef } from "react";
+import Chart from "chart.js/auto";
 
-const MARGIN = 30;
+const DonutChart = ({ percentage }) => {
+  const chartRef = useRef(null);
+  const chartInstance = useRef(null);
 
-const colors = [
-  "#e0ac2b",
-  "#e85252",
-  "#6689c6",
-  "#9a6fb0",
-  "#a53253",
-  "#69b3a2",
-];
+  useEffect(() => {
+    if (chartInstance.current) {
+      chartInstance.current.destroy(); // Destroy the previous chart instance
+    }
 
-const DonutChart = ({ width, height, data }) => {
-  const radius = Math.min(width, height) / 2 - MARGIN;
+    if (chartRef && chartRef.current) {
+      const ctx = chartRef.current.getContext("2d");
+      chartInstance.current = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          datasets: [
+            {
+              data: [percentage, 100 - percentage],
+              backgroundColor: ["green", "Lavender"],
+            },
+          ],
+        },
+        options: {
+          cutout: "60%",
+          plugins: {
+            legend: {
+              display: false,
+            },
+            tooltip: {
+              enabled: false,
+            },
+          },
+          // Custom text in the center of the doughnut
+          plugins: {
+            doughnutlabel: {
+              labels: [],
+            },
+          },
+        },
+      });
+    }
 
-  const pie = useMemo(() => {
-    const pieGenerator = d3.pie().value((d) => d.value);
-    return pieGenerator(data);
-  }, [data]);
+    return () => {
+      if (chartInstance.current) {
+        chartInstance.current.destroy(); // Clean up on component unmount
+      }
+    };
+  }, [percentage]);
 
-  const arcs = useMemo(() => {
-    const arcPathGenerator = d3.arc();
-    return pie.map((p) =>
-      arcPathGenerator({
-        innerRadius: 70,
-        outerRadius: radius,
-        startAngle: p.startAngle,
-        endAngle: p.endAngle,
-      })
-    );
-  }, [radius, pie]);
+  useEffect(() => {
+    if (chartInstance.current && chartRef.current) {
+      const ctx = chartRef.current.getContext("2d");
+      const centerX = chartRef.current.width / 2;
+      const centerY = chartRef.current.height / 2;
 
-  return (
-    <svg width={width} height={height} style={{ display: "inline-block" }}>
-      <g transform={`translate(${width / 2}, ${height / 2})`}>
-        {arcs.map((arc, i) => {
-          return <path key={i} d={arc} fill={colors[i]} />;
-        })}
-      </g>
-    </svg>
-  );
+      ctx.clearRect(0, 0, chartRef.current.width, chartRef.current.height); // Clear previous text
+      ctx.save();
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = "black";
+      ctx.font = "20px Arial";
+      ctx.fillText(`${percentage}%`, centerX, centerY);
+      ctx.restore();
+    }
+  }, [percentage]);
+
+  return <canvas className="donut" ref={chartRef}></canvas>;
 };
 
 export default DonutChart;

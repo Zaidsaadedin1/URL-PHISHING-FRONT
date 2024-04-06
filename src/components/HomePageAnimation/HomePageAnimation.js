@@ -28,6 +28,7 @@ function HomePageAnimation() {
 
       if (response.status === 200) {
         setDatas(response.data);
+        console.log(response);
         setIsLoading(false);
         setUrl("");
         setIsPhishing(true);
@@ -36,7 +37,7 @@ function HomePageAnimation() {
       console.error("Error checking URL:", error);
       setIsLoading(false);
       setUrl("");
-      setIsPhishing(true); //false
+      setIsPhishing(false); //false
     }
   };
   if (isPhishing) {
@@ -70,15 +71,15 @@ function HomePageAnimation() {
       {datas && (
         <footer className="home-page-foorter">
           <div className="footer-donut">
-            <DonutChart width={300} height={300} data={data} />
+            <DonutChart percentage={50} />
             <h1>SVM</h1>
           </div>
           <div className="footer-donut">
-            <DonutChart width={300} height={300} data={data} />
+            <DonutChart percentage={60} />
             <h1>Random Forest</h1>
           </div>
           <div className="footer-donut">
-            <DonutChart width={300} height={300} data={data} />
+            <DonutChart percentage={90} />
             <h1>Decision Tree</h1>
           </div>
         </footer>
