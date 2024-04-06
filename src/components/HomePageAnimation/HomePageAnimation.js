@@ -2,21 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import "./HomePageAnimation.css";
 import { apis } from "../../Api/Apis";
 import LoadingShape from "../../Helpers/LoadingShape/LoadingShape";
-import { Navigate } from "react-router-dom";
 import DonutChart from "../../Helpers/DonutChart/DonutChart";
 
 function HomePageAnimation() {
   const [url, setUrl] = useState("");
-  const [isPhishing, setIsPhishing] = useState(null);
   const [isloading, setIsLoading] = useState(false);
-  const [datas, setDatas] = useState([]);
-  const data = [
-    { name: "Mark", value: 90 },
-    { name: "Robert", value: 12 },
-    { name: "Emily", value: 34 },
-    { name: "Marion", value: 53 },
-    { name: "Nicolas", value: 98 },
-  ];
+  const [data, setData] = useState([]);
   const checkUrl = async () => {
     if (!url) {
       return;
@@ -24,25 +15,20 @@ function HomePageAnimation() {
     setIsLoading(true);
     try {
       const response = await apis.checkApi(url);
-      setIsPhishing(true);
 
       if (response.status === 200) {
-        setDatas(response.data);
+        setData(response.data);
         console.log(response);
         setIsLoading(false);
         setUrl("");
-        setIsPhishing(true);
       }
     } catch (error) {
       console.error("Error checking URL:", error);
       setIsLoading(false);
       setUrl("");
-      setIsPhishing(false); //false
     }
   };
-  if (isPhishing) {
-    return <Navigate to={"/analysis"} />;
-  }
+
   return (
     <div className="parent">
       <div>
@@ -68,7 +54,7 @@ function HomePageAnimation() {
           Scan
         </button>
       </div>
-      {datas && (
+      {data && (
         <footer className="home-page-foorter">
           <div className="footer-donut">
             <DonutChart percentage={50} />
