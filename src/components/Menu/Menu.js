@@ -10,7 +10,6 @@ function Menu() {
           <h1 className="logo">MESH URL PHISHING DETECTOR</h1>
         </Link>
       </div>
-
       <div className="right-side-menu">
         <Link to="/about-us" className="menu-link">
           <h2 className="logo">AboutUs</h2>

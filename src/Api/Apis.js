@@ -12,4 +12,6 @@ export const apis = {
       throw error;
     }
   },
+  name:"zaid",
+  
 };

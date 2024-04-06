@@ -13,7 +13,7 @@ function ContactUs() {
     setEmail("");
     setMessage("");
   };
-
+  console.log(name);
   return (
     <div className="contact-us-container">
       <h2>Contact Us</h2>
