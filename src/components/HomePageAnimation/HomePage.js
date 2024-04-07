@@ -4,22 +4,26 @@ import { apis } from "../../Api/Apis";
 import LoadingShape from "../../Helpers/LoadingShape/LoadingShape";
 import DonutChart from "../../Helpers/DonutChart/DonutChart";
 
-function HomePage() {
+function HomePageAnimation() {
   const [url, setUrl] = useState("");
   const [isloading, setIsLoading] = useState(false);
-  const [data, setData] = useState({});
-
-  const checkUrl = async (url) => {
+  const [data, setData] = useState([]);
+  const checkUrl = async () => {
     if (!url) {
       return;
     }
     setIsLoading(true);
+    try {
+      const response = await apis.checkApi(url);
 
-    const response = await apis.checkApi(url);
-
-    if (response.status === 200) {
-      setData(response.data);
-      console.log(response);
+      if (response.status === 200) {
+        setData(response.data);
+        console.log(response);
+        setIsLoading(false);
+        setUrl("");
+      }
+    } catch (error) {
+      console.error("Error checking URL:", error);
       setIsLoading(false);
       setUrl("");
     }
@@ -45,7 +49,7 @@ function HomePage() {
           onChange={(e) => setUrl(e.target.value)}
           placeholder="Enter Your Url To Check It..."
         />
-        <button className="button" disabled={isloading} onClick={checkUrl}>
+        <button className="button" disabled={isloading} is onClick={checkUrl}>
           {isloading && <LoadingShape />}
           Scan
         </button>
@@ -70,4 +74,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default HomePageAnimation;
