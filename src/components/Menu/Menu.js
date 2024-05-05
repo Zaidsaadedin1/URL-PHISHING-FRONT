@@ -14,9 +14,6 @@ function Menu() {
         <Link to="/about-us" className="menu-link">
           <h2 className="logo">AboutUs</h2>
         </Link>
-        <Link to="/contact-us" className="menu-link">
-          <h2 className="logo">ContactUs</h2>
-        </Link>
       </div>
     </div>
   );

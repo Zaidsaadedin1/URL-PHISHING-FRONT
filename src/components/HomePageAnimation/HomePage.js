@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import "./HomePageAnimation.css";
 import { apis } from "../../Api/Apis";
 import LoadingShape from "../../Helpers/LoadingShape/LoadingShape";
@@ -11,27 +11,17 @@ function HomePageAnimation() {
     dt_probability: 0, // Decision Tree probability
     knn_probability: 0, // k-Nearest Neighbors probability
     svm_probability: 0, // Support Vector Machine probability
-    message: "", // Message from the API
+    message: "",
   });
 
-  const checkUrl = async () => {
+  async function checkUrl() {
     if (!url) return;
     setIsLoading(true);
+    const response = await apis.checkApi(url);
 
-    try {
-      const response = await apis.checkApi(url);
-      console.log(response);
-
-      setData(response); // Update state
-      console.log("New data set", response); // Log the new data directly
-      setIsLoading(false);
-      setUrl("");
-    } catch (error) {
-      console.error("Error checking URL:", error);
-      setIsLoading(false);
-      setUrl("");
-    }
-  };
+    setData(response);
+    setIsLoading(false);
+  }
 
   return (
     <div className="parent">
@@ -58,22 +48,22 @@ function HomePageAnimation() {
           Scan
         </button>
       </div>
-      {data.message && (
-        <footer className="home-page-footer">
-          <div className="footer-donut">
-            <DonutChart percentage={data.dt_probability} />
-            <h1>Decision Tree</h1>
-          </div>
-          <div className="footer-donut">
-            <DonutChart percentage={data.knn_probability} />
-            <h1>k-NN</h1>
-          </div>
-          <div className="footer-donut">
-            <DonutChart percentage={data.svm_probability} />
-            <h1>SVM</h1>
-          </div>
-        </footer>
-      )}
+
+      <h1 className="message">{data.message}</h1>
+      <footer className="home-page-footer">
+        <div className="footer-donut">
+          <DonutChart percentage={data.dt_probability} />
+          <h1>Decision Tree</h1>
+        </div>
+        <div className="footer-donut">
+          <DonutChart percentage={data.knn_probability} />
+          <h1>k-NN</h1>
+        </div>
+        <div className="footer-donut">
+          <DonutChart percentage={data.svm_probability} />
+          <h1>SVM</h1>
+        </div>
+      </footer>
     </div>
   );
 }

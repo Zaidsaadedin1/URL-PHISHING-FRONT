@@ -1,35 +1,33 @@
-.parent{
+.parent {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-.parent .main-header-sub ,.main-header{
+.parent .main-header-sub,
+.main-header {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-.main-header{
-    font-weight: bold;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    font-size: x-large;
-    color: gray;
-      margin-bottom: 20px;
-
+.main-header {
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: x-large;
+  color: gray;
+  margin-bottom: 20px;
 }
-.main-header-sub{
-    font-weight: bold;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    font-size: medium;
-    color: gray;
-      margin-bottom: 20px;
-
+.main-header-sub {
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: medium;
+  color: gray;
+  margin-bottom: 20px;
 }
 
-
-.parent .search-container{
+.parent .search-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,7 +43,6 @@
   max-width: 1000px;
   min-width: 600px;
 }
- 
 
 .button {
   display: flex;
@@ -57,7 +54,7 @@
   height: 45px;
   margin: 0%;
   font-weight: bold;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   border: 0cap;
 }
 
@@ -69,28 +66,47 @@
   height: 20px;
   outline: none;
   border: 0cap;
-
 }
 
-.home-page-foorter{
-  margin: 0%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-.footer-donut{
+.message {
   margin: 0%;
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  margin: 10px;
-
+  margin: 5px;
+  font-size: large;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
-.footer-donut h1{
+.home-page-footer {
+  margin: 0%;
+  display: flex;
+  justify-content: space-around; /* Ensures space distribution around items */
+  align-items: center;
+  flex-direction: row; /* Align children in a row */
+  flex-wrap: wrap; /* Allows items to wrap if space is insufficient */
+}
+
+.footer-donut {
+  margin: 10px;
+  display: flex;
+  justify-content: center; /* Center content within each donut container */
+  align-items: center;
+  flex-direction: column; /* Text and chart in each donut are stacked */
+}
+
+/* Ensure search-container and input/button have appropriate settings */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Utilize full width to prevent squeezing */
+  max-width: 1000px;
+  min-width: 600px;
+  padding: 20px; /* Add padding to ensure contents are not too squished */
+}
+.footer-donut h1 {
   color: gray;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-size: medium;
 }

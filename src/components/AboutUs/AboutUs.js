@@ -2,8 +2,6 @@ import React from "react";
 import "./AboutUs.css";
 
 function AboutUs() {
-
-  
   return (
     <div className="parent">
       <div className="sub-parent">
@@ -19,11 +17,11 @@ function AboutUs() {
           yourself and your information while browsing the internet.
         </p>
         <p className="main-pragragh">
-          At our core, we utilize state-of-the-art technology such as SV
-          decision trees and Random Forest algorithms to detect and analyze
-          phishing URLs effectively. These advanced algorithms allow us to stay
-          ahead of cybercriminals by continuously learning and adapting to new
-          threats in real-time.
+          At our core, we utilize state-of-the-art technology such as SVM
+          Decision Trees and KNN algorithms to detect and analyze phishing URLs
+          effectively. These advanced algorithms allow us to stay ahead of
+          cybercriminals by continuously learning and adapting to new threats in
+          real-time.
         </p>
         <p className="main-pragragh">
           Our team consists of cybersecurity experts, data scientists, and
